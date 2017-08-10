@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<style>
+
+body {
+	background: url("background-02.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+p {
+
+	font-family: "futura";
+	color:white;
+	font-size: 16px;
+}
+
+h1{
+	color:white;
+}
+
+.navbar {
+    background-color: #3c3d41;
+	padding: 10px 10px;
+	
+}
+
+.crystal {
+
+	margin: 20px;
+}
+
+</style>
+ 	<meta charset="UTF-8">
+	<title>Psych Game</title>
+
+</head>
+<body>
+
+<body style="background-image: url(assets/images/psych_game-02.png)">
+
+
+<div class="navbar navbar-default navbar-fixed-bottom">
+<div class="container">
+
+	<div class="row">
+		<div class="col-sm-2"> <p> wins: <div id="wins"></div></p> </div>
+
+		<div class="cool-sm-2"> <p> looses: <div id="loos"></div></p></div>
+
+	</div>
+
+	<div class="row">
+	<div class="col-md-2"> <p>guesses left: <div id="guessesLeft"></div></p> </div>
+	<div class="col-md-2"><p>your guesses so far: <div id="yourGuessesSoFar"> </div></p></div> 
+
+	</div>
+</div>
+</div>
+
+<h1><div id="Userguess"></div></h1>
+
+<div class="crystal">
+
+<button onclick="document.getElementById('myImage').src='assets/images/alphabet-03.png'">A</button>
+<img id="myImage" src="assets/images/alphabet_nada-29.png" style="width:100px">
+<button onclick="document.getElementById('myImage').src='assets/images/alphabet-04.png'">B</button>
+
+</div>
+
+<script>
+
+
+
+var computerChoices = ["a", "b", "c", "d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","y","x","z"];
+
+var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+var wins=0;
+
+var loss=0;
+
+var guessesLeft = 3;
+
+var yourGuessesSoFar = 0;
+
+
+console.log("computerGuess " +computerGuess);
+
+var alphabet = ["assets/images/alphabet-03","assets/images/alphabet-04"];
+
+   function changeImage(dir) {
+        var img = document.getElementById("alphabet");
+        img.src = imgs[imgs.indexOf(img.src) + (dir || 1)] || imgs[dir ? imgs.length - 1 : 0];
+    }
+
+    document.onkeydown = function(e) {
+        e = e || window.event;
+        if (e.keyCode == 'A') {
+            changeImage(-1) //left <- show Prev image
+        } else if (e.keyCode == '39') {
+            // right -> show next image
+            changeImage()
+        }
+
+}
+
+document.body.onkeyup = function(event) {
+	document.getElementById("Userguess").innerHTML = String.fromCharCode(event.keyCode);
+	
+  if (computerGuess === Userguess) {
+    wins++;
+    console.log("wins " +wins);
+    console.log("Guesses Left " +guessesLeft);
+    console.log("Your Guesses so far " +yourGuessesSoFar);
+
+    document.getElementById("wins").innerHTML = wins;
+    document.getElementById("guessesLeft").innerHTML = guessesLeft;
+    document.getElementById("yourGuessesSoFar").innerHTML = yourGuessesSoFar;
+}
+
+  else if (computerGuess != Userguess) {
+    yourGuessesSoFar++, guessesLeft--;
+
+ 	console.log("Guesses Left " +guessesLeft);
+    console.log("Your Guesses so far " +yourGuessesSoFar); 
+    console.log("wins"+wins);
+    console.log("loss"+loss); 
+
+    document.getElementById("guessesLeft").innerHTML = guessesLeft;
+    document.getElementById("yourGuessesSoFar").innerHTML = yourGuessesSoFar;
+}
+
+	 else if (guessesLeft < 0) {
+    loss++;
+
+	console.log("loss " +loss);  
+ 	console.log("Guesses Left " +guessesLeft);
+    console.log("Your Guesses so far " +yourGuessesSoFar);  
+
+}
+}
+
+</script>
+
+<!--<script type="text/javascript" src="assets/javascript/game.js"></script>-->
+
+
+</body>
+</html>
