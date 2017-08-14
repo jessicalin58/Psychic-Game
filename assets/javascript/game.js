@@ -1,19 +1,104 @@
 
-  var Userguess = 0;
+var computerChoices = ["w","a","s","d"];
 
-  var computerChoices = ["a", "b", "c", "d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","y","x","z"];
+var computerGuess = null;
 
+var wins = 0;
+
+var loss = 0;
+
+var guessesLeft = 3;
+
+var yourGuessesSoFar = 0;
+
+//Tell user guesses and guesses so far without key pressing 
+
+  document.getElementById("guessesLeft").innerHTML = guessesLeft;
+    document.getElementById("yourGuessesSoFar").innerHTML = yourGuessesSoFar;
+
+
+//Key pressing function 
+
+document.body.onkeyup = function(event) {
+
+  var Userguess = event.key;
+  document.getElementById("Userguess").innerHTML = String.fromCharCode(event.keyCode);
   var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
   
-  var guessesLeft = 3;
+  
+  if (computerGuess === Userguess) {
+    wins++;
 
-  var yourGuessesSoFar = 0;
+    document.getElementById("wins").innerHTML = wins;
+    document.getElementById("guessesLeft").innerHTML = guessesLeft;
+    document.getElementById("yourGuessesSoFar").innerHTML = yourGuessesSoFar;
 
-  var loss=0;
+    document.getElementById("computerGuess").innerHTML = computerGuess;
+}
 
-  var wins=0;
+  if (computerGuess !== Userguess) {
+    yourGuessesSoFar++, guessesLeft--;
 
-  var test=0;
+    document.getElementById("guessesLeft").innerHTML = guessesLeft;
+    document.getElementById("yourGuessesSoFar").innerHTML = yourGuessesSoFar;
+    document.getElementById("computerGuess").innerHTML = computerGuess;
+}
 
-  console.log("computerGuess " + computerGuess);
-  console.log("Userguess " + Userguess );
+   if (guessesLeft <= 0) {
+    loss++;
+    guessesLeft = 3;
+
+  document.getElementById("loss").innerHTML = loss;
+
+
+}
+
+//Restart
+
+  if (loss >= 3) {
+
+    loss = 0;
+    guessesLeft = 3; 
+
+    wins = 0;
+
+    loss = 0;
+
+    yourGuessesSoFar = 0;
+
+
+    alert("Game Over!");
+
+    document.getElementById("wins").innerHTML = wins;
+  document.getElementById("loss").innerHTML = loss;
+    document.getElementById("guessesLeft").innerHTML = guessesLeft;
+    document.getElementById("yourGuessesSoFar").innerHTML = yourGuessesSoFar;
+
+
+    }
+
+  
+
+  if (wins >= 3) {
+
+    alert("You Won!");
+
+    loss = 0;
+    guessesLeft = 3; 
+
+    wins = 0;
+
+    loss = 0;
+
+    yourGuessesSoFar = 0;
+
+    document.getElementById("wins").innerHTML = wins;
+  document.getElementById("loss").innerHTML = loss;
+    document.getElementById("guessesLeft").innerHTML = guessesLeft;
+    document.getElementById("yourGuessesSoFar").innerHTML = yourGuessesSoFar;
+
+  }
+}
+
+
